@@ -1,0 +1,66 @@
+{
+  "name": "slush-reloader",
+  "description": "Static page generator",
+  "version": "0.1.0",
+  "homepage": "https://github.com/KevinOrfas/slush-reloader",
+  "author": {
+    "name": "Anastasios Orfanidis",
+    "email": "anastasios.orfanidis@wardour.co.uk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/KevinOrfas/slush-reloader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KevinOrfas/slush-reloader/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/KevinOrfas/slush-reloader/blob/master/LICENSE"
+    }
+  ],
+  "main": "slushfile.js",
+  "engines": {
+    "node": ">= 0.10.26",
+    "npm": ">=1.4.3"
+  },
+  "scripts": {
+    "test": "echo \"No tests\""
+  },
+  "dependencies": {
+    "slush": ">=1.0.0",
+    "gulp": "^3.6.2",
+    "gulp-template": "^0.1.1",
+    "gulp-install": "^0.1.4",
+    "gulp-conflict": "^0.1.1",
+    "gulp-rename": "^1.2.0",
+    "underscore.string": "^2.3.3",
+    "inquirer": "^0.8.0",
+    "iniparser": "^1.0.5"
+  },
+  "keywords": [
+    "slushgenerator"
+  ],
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.6",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-cache": "^0.2.8",
+    "gulp-concat": "^2.5.2",
+    "gulp-connect": "^2.0.6",
+    "gulp-htmlmin": "^1.1.1",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-jshint": "^1.9.4",
+    "gulp-livereload": "^3.8.0",
+    "gulp-minify-css": "^1.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^1.3.3",
+    "gulp-size": "^1.2.1",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-uglify": "^1.1.0",
+    "gulp-util": "^3.0.4",
+    "jshint-stylish": "^1.0.1"
+  }
+}
