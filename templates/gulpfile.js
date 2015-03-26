@@ -106,20 +106,18 @@ gulp.task('graphics', function() {
     .pipe($.notify({ message: 'Graphics task complete' }));
 });
 
-// gulp.task('fonts', function () {
-//   return gulp.src(input.fonts).
-//     .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
-//     .pipe($.flatten())
-//     .pipe(gulp.dest('dist/assets/fonts'));
-// });
-
+gulp.task('fonts', function () {
+  return gulp.src(input.fonts)
+    .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
+    .pipe($.flatten())
+    .pipe(gulp.dest(output.fonts));
+});
 
 gulp.task('clean', function(cb) {
     del('dist', cb)
 });
 
-
-gulp.task('build', ['build-css', 'build-js', 'html', 'images', 'graphics'], function () {
+gulp.task('build', ['build-css', 'build-js', 'html', 'images', 'graphics', 'fonts'], function () {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
