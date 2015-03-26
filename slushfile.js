@@ -1,10 +1,11 @@
 /*
- * slush-reloader
- * https://github.com/KevinOrfas/slush-reloader
- *
- * Copyright (c) 2015, Anastasios Orfanidis
- * Licensed under the MIT license.
- */
+* slush-reloader
+* https://github.com/arvindr21/slush-reloader
+*
+* Copyright (c) 2014, Arvind Ravulavaru
+* Licensed under the MIT license.
+*/
+
 
 'use strict';
 
