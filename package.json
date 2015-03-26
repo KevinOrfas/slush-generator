@@ -46,8 +46,6 @@
     "front-end",
     "h5bp",
     "gulp"
-  ],
-  "devDependencies": {
-    "gulp-load-plugins": "^0.9.0"
-  }
+  ]
+ 
 }

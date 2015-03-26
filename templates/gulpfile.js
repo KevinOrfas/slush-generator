@@ -1,26 +1,7 @@
-var gulp = require('gulp');
+var gulp = require('gulp'),
+    del = require('del');
 
 var $ = require('gulp-load-plugins')();
-
-// var gutil = require('gulp-util'),
-//     jshint = require('gulp-jshint'),
-//     sass   = require('gulp-sass'),
-//     concat = require('gulp-concat'),
-//     sourcemaps = require('gulp-sourcemaps'),
-//     autoprefixer = require('gulp-autoprefixer'),
-//     minifycss = require('gulp-minify-css'),
-//     uglify = require('gulp-uglify'),
-//     imagemin = require('gulp-imagemin'),
-//     htmlmin = require('gulp-htmlmin'),
-//     rename = require('gulp-rename'),
-//     notify = require('gulp-notify'),
-//     cache = require('gulp-cache'),
-//     livereload = require('gulp-livereload'),
-//     del = require('del'),
-//     connect = require('gulp-connect'),
-//     size = require('gulp-size');
-
-
 
 var browserSync = require('browser-sync'),
     reload      = browserSync.reload;
@@ -86,7 +67,7 @@ gulp.task('build-css', function() {
     .pipe($.sourcemaps.init()) // Process the original sources
       .pipe($.sass({ style: 'expanded' }))
       .pipe($.autoprefixer('last 2 version'))
-      .pipe($.minifycss())
+      .pipe($.minifyCss())
       .pipe($.rename({suffix: '.min'}))
     .pipe($.sourcemaps.write()) // Add the map to modified source.
     .pipe(gulp.dest(output.styles))
@@ -99,8 +80,8 @@ gulp.task('build-js', function() {
     .pipe($.sourcemaps.init())
       .pipe($.concat('bundle.js'))
       //only uglify if gulp is ran with '--type production'
-      .pipe($.gutil.env.type === 'production' ? $.rename({suffix: '.min'}) : $.gutil.noop()) 
-      .pipe($.gutil.env.type === 'production' ? $.uglify() : $.gutil.noop()) 
+      .pipe($.util.env.type === 'production' ? $.rename({suffix: '.min'}) : $.util.noop()) 
+      .pipe($.util.env.type === 'production' ? $.uglify() : $.util.noop()) 
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(output.scripts))
     .pipe($.notify({ message: 'Scripts task complete' }));;
@@ -114,7 +95,7 @@ gulp.task('html', function () {
 
 gulp.task('images', function() {
   return gulp.src(input.images)
-    .pipe($.cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+    .pipe($.cache($.imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
     .pipe(gulp.dest(output.images))
     .pipe($.notify({ message: 'Images task complete' }));
 });
