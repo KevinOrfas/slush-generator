@@ -1,25 +1,28 @@
-var gulp = require('gulp'),
-    gutil = require('gulp-util'),
-    jshint = require('gulp-jshint'),
-    sass   = require('gulp-sass'),
-    concat = require('gulp-concat'),
-    sourcemaps = require('gulp-sourcemaps'),
-    autoprefixer = require('gulp-autoprefixer'),
-    minifycss = require('gulp-minify-css'),
-    uglify = require('gulp-uglify'),
-    imagemin = require('gulp-imagemin'),
-    htmlmin = require('gulp-htmlmin'),
-    rename = require('gulp-rename'),
-    notify = require('gulp-notify'),
-    cache = require('gulp-cache'),
-    livereload = require('gulp-livereload'),
-    del = require('del'),
-    connect = require('gulp-connect'),
-    size = require('gulp-size'),
-    browserSync = require('browser-sync'),
-    reload      = browserSync.reload,
+var gulp = require('gulp');
 
-    input = {
+// var gutil = require('gulp-util'),
+//     jshint = require('gulp-jshint'),
+//     sass   = require('gulp-sass'),
+//     concat = require('gulp-concat'),
+//     sourcemaps = require('gulp-sourcemaps'),
+//     autoprefixer = require('gulp-autoprefixer'),
+//     minifycss = require('gulp-minify-css'),
+//     uglify = require('gulp-uglify'),
+//     imagemin = require('gulp-imagemin'),
+//     htmlmin = require('gulp-htmlmin'),
+//     rename = require('gulp-rename'),
+//     notify = require('gulp-notify'),
+//     cache = require('gulp-cache'),
+//     livereload = require('gulp-livereload'),
+//     del = require('del'),
+//     connect = require('gulp-connect'),
+//     size = require('gulp-size');
+
+
+var browserSync = require('browser-sync'),
+    reload      = browserSync.reload;
+
+var input = {
     'sass': 'assets/styles/sass/**/*.scss',
     'scripts': 'assets/scripts/**/*.js',
     'vendor': 'assets/scripts/vendor/**/*.js',
@@ -44,7 +47,10 @@ gulp.task('serve', ['browser-sync', 'watch']);
 gulp.task('browser-sync', function() {
     browserSync({
         server: {
-            baseDir: "./"
+            baseDir: "./",
+            routes: {
+              '/bower_components': 'bower_components'
+            }
         }
     });
 
