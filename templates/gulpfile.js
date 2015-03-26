@@ -16,6 +16,8 @@ var gulp = require('gulp'),
     del = require('del'),
     connect = require('gulp-connect'),
     size = require('gulp-size'),
+    browserSync = require('browser-sync'),
+    reload      = browserSync.reload,
 
     input = {
     'sass': 'assets/styles/sass/**/*.scss',
@@ -26,6 +28,7 @@ var gulp = require('gulp'),
     'fonts' : 'assets/fonts/**/*'
   },
   output = {
+    'css' : 'assets/styles',
     'styles': 'dist/assets/styles',
     'scripts': 'dist/assets/scripts',
     'images' : 'dist/assets/images',
@@ -35,7 +38,32 @@ var gulp = require('gulp'),
 
 
 // define the serve task and add the connect and watch task to it
-gulp.task('serve', ['connect', 'watch']);
+gulp.task('serve', ['browser-sync', 'watch']);
+
+// Static server
+gulp.task('browser-sync', function() {
+    browserSync({
+        server: {
+            baseDir: "./"
+        }
+    });
+
+    gulp.watch('./*.html').on('change', reload);
+});
+
+gulp.task('watch', function () {
+  gulp.watch(input.scripts, ['jshint', reload]);
+  gulp.watch(input.sass, ['sass']);
+});
+
+gulp.task('sass', function() {
+  return gulp.src(input.sass)
+    .pipe(sass())
+    .pipe(autoprefixer('last 2 version'))
+    .pipe(gulp.dest(output.css))
+    .pipe(reload({stream: true}))
+    .pipe(notify({ message: 'CSS in the folder' }));
+});
 
 // configure the jshint task
 gulp.task('jshint', function() {
@@ -56,13 +84,6 @@ gulp.task('build-css', function() {
     .pipe(notify({ message: 'Styles task complete' }));
 });
 
-gulp.task('css', function() {
-  return gulp.src(input.sass)
-    .pipe(sass({ style: 'expanded' }))
-    .pipe(autoprefixer('last 2 version'))
-    .pipe(gulp.dest('assets/style'))
-    .pipe(notify({ message: 'CSS in the folder' }));
-});
 
 gulp.task('build-js', function() {
   return gulp.src([input.scripts, input.vendor])
@@ -107,18 +128,6 @@ gulp.task('clean', function(cb) {
     del('dist', cb)
 });
 
-gulp.task('connect', function() {
-  connect.server({
-    root: './',
-    livereload: true
-  });
-});
- 
-gulp.task('watch', function () {
-  gulp.watch('*.html', connect.reload());
-  gulp.watch(input.scripts, ['jshint']);
-  gulp.watch(input.sass, ['css']);
-});
 
 gulp.task('build', ['build-css', 'build-js', 'html', 'images', 'graphics'], function () {
   return gulp.src('dist/**/*').pipe(size({title: 'build', gzip: true}));
