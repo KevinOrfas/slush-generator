@@ -1,0 +1,8 @@
+{
+  "name": "slush-reloader",
+  "private": true,
+  "dependencies": {
+   	"jquery" : "~2.1.3",
+	"modernizer" : "~2.8.2"
+  }
+}
