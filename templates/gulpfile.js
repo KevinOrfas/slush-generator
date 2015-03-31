@@ -31,7 +31,7 @@ gulp.task('serve', ['browser-sync', 'watch']);
 gulp.task('browser-sync', function() {
     browserSync({
         server: {
-            baseDir: "./",
+            baseDir: './',
             routes: {
               '/bower_components': 'bower_components'
             }
@@ -67,8 +67,8 @@ gulp.task('build-css', function() {
     .pipe($.sourcemaps.init()) // Process the original sources
       .pipe($.sass({ style: 'expanded' }))
       .pipe($.autoprefixer('last 2 version'))
-      .pipe($.minifyCss())
-      .pipe($.rename({suffix: '.min'}))
+      .pipe($.util.env.type === 'production' ? $.rename({suffix: '.min'}) : $.util.noop()) 
+      .pipe($.util.env.type === 'production' ? $.minifyCss() : $.util.noop())
     .pipe($.sourcemaps.write()) // Add the map to modified source.
     .pipe(gulp.dest(output.styles))
     .pipe($.notify({ message: 'Styles task complete' }));
@@ -78,8 +78,8 @@ gulp.task('build-css', function() {
 gulp.task('build-js', function() {
   return gulp.src([input.scripts, input.vendor])
     .pipe($.sourcemaps.init())
-      .pipe($.concat('bundle.js'))
       //only uglify if gulp is ran with '--type production'
+      .pipe($.util.env.type === 'production' ? $.concat('bundle.js') : $.util.noop()) 
       .pipe($.util.env.type === 'production' ? $.rename({suffix: '.min'}) : $.util.noop()) 
       .pipe($.util.env.type === 'production' ? $.uglify() : $.util.noop()) 
     .pipe($.sourcemaps.write())
@@ -87,9 +87,12 @@ gulp.task('build-js', function() {
     .pipe($.notify({ message: 'Scripts task complete' }));;
 });
 
-gulp.task('html', function () {
-  gulp.src('./*.html')
-    .pipe($.htmlmin({collapseWhitespace: true}))
+gulp.task('html', ['build-css', 'build-js'], function () {
+  var sources = gulp.src(['dist/assets/scripts/bundle.min.js', 'dist/assets/styles/app.min.css'], {read: false});
+  return gulp.src('./*.html')
+    .pipe($.util.env.type === 'production' ? $.removeCode({ production: true }) : $.util.noop())
+    .pipe($.util.env.type === 'production' ? $.inject(sources) : $.util.noop())
+    .pipe($.util.env.type === 'production' ? $.htmlmin({collapseWhitespace: true}) : $.util.noop()) 
     .pipe(gulp.dest('dist'));
 });
 

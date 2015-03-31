@@ -8,9 +8,14 @@
 
      <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
-
+    
+    <!--removeIf(production)-->
     <link rel='stylesheet' href='assets/styles/app.css' />
+    <!--endRemoveIf(production)-->
 
+    
+    <!-- inject:css -->
+    <!-- endinject -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
 
     
@@ -19,13 +24,15 @@
     <h1><%= appName %></h1>
     <p>Welcome to <%= appName %></p>
     <p><%= appDescription %></p>
-   
-    
-    
-
 
     <footer><%= authorName %> <span><%= appVersion %></span> </footer>
+
+    <!--removeIf(production)-->
     <script type="text/javascript" src="assets/scripts/app.js"></script>
+    <!--endRemoveIf(production)-->
+
+    <!-- inject:js -->
+    <!-- endinject -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
   	<script>
