@@ -1,7 +1,7 @@
 {
-  "name": "slush-reloader",
-  "description": "Static page generator",
-  "version": "0.1.0",
+  "name": "slush-wardour-generator",
+  "description": "Scaffold your app",
+  "version": "1.0.0",
   "homepage": "https://github.com/KevinOrfas/slush-reloader-generator",
   "author": {
     "name": "Anastasios Orfanidis",
